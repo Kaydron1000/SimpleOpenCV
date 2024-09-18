@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="SimpleOpenCV.Views.ScalePropertiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimpleOpenCV.Views"
+             xmlns:olocal="clr-namespace:SimpleOpenCV"
+             xmlns:converters="clr-namespace:SimpleOpenCV.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="250" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+    <UserControl.Resources>
+        <converters:ThresholdTypeConverter x:Key="ThresholdTypeConverter"/>
+    </UserControl.Resources>
+    <StackPanel>
+        <StackPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Content="Scale:" Grid.Row="7" Grid.Column="0"></Label>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <Slider Minimum="0" Maximum="100" Margin="5"/>
+                <CheckBox Grid.Row="1" Content="Aspect Ratio:" Margin="5,8,5,5"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel  Grid.Column="0" >
+                    <Label Content="X Pixels:"/>
+                    <TextBox x:Name="TB_XPixels" Margin="5,0,5,5" Text="{Binding Path=XPixels, Mode=TwoWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1" >
+                    <Label Content="Y Pixels:"/>
+                    <TextBox x:Name="TB_YPixels" Margin="5,0,5,5" Text="{Binding Path=YPixels, Mode=TwoWay}"></TextBox>
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel  Grid.Column="0" >
+                    <Label Content="X Scale:"/>
+                    <TextBox x:Name="TB_XScale" Margin="5,0,5,5" Text="{Binding Path=XScale, Mode=TwoWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1" >
+                    <Label Content="Y Scale:"/>
+                    <TextBox x:Name="TB_YScale" Margin="5,0,5,5" Text="{Binding Path=YScale, Mode=TwoWay}"></TextBox>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <GridSplitter Height="5" Margin="0,10,0,0" HorizontalAlignment="Stretch"/>
+        <StackPanel>
+            <Label Content="Interpolation Type:"/>
+            <ComboBox x:Name="Combobox_ThresholdTypes" SelectedItem="{Binding InterpolationType, Converter={StaticResource ThresholdTypeConverter}, Mode=TwoWay}">
+            </ComboBox>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="SimpleOpenCV.Views.ColorSpacePropertiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimpleOpenCV.Views"
+             xmlns:converters="clr-namespace:SimpleOpenCV.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="150" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+             >
+    <StackPanel HorizontalAlignment="Stretch">
+        <Label Content="Color Space Conversion:"/>
+        <ComboBox x:Name="Combobox_AvailableColorSpaceConversions" ItemsSource="{Binding AvailableColorSpaceCodes}" SelectedItem="{Binding SelectedColorSpace}"/>
+
+        <Label Content="Channels to Display:" Margin="0,5,0,0"/>
+        <CheckBox x:Name="AllChannelsCheckbox"
+          Content="All"
+          IsChecked="{Binding IsAllChannelsChecked, Mode=TwoWay}" IsThreeState="True"/>
+
+        <CheckBox Content="Channel 1"
+          IsChecked="{Binding IsChannel1Checked, Mode=TwoWay}" Visibility="{Binding Channel1Visible}" Margin="0,5,0,2"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="TextBox_Channel1" Grid.Column="0" Text="{Binding Channel1Value, Mode=TwoWay}" Visibility="{Binding Channel1Visible}" />
+            <Slider x:Name="Slider_Channel1" Grid.Column="1" Margin="5,0,0,0" Minimum="{Binding Channel1MinValue}" Maximum="{Binding Channel1MaxValue}" Value="{Binding Channel1Value}" Visibility="{Binding Channel1Visible}" HorizontalAlignment="Stretch"/>
+        </Grid>
+        <CheckBox Content="Channel 2"
+          IsChecked="{Binding IsChannel2Checked, Mode=TwoWay}" Visibility="{Binding Channel2Visible}" Margin="0,5,0,2"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="TextBox_Channel2" Grid.Column="0" Text="{Binding Channel2Value, Mode=TwoWay}" Visibility="{Binding Channel2Visible}"/>
+            <Slider x:Name="Slider_Channel2" Grid.Column="1" Margin="5,0,0,0" Minimum="{Binding Channel2MinValue}" Maximum="{Binding Channel2MaxValue}" Value="{Binding Channel2Value}" Visibility="{Binding Channel2Visible}"/>
+        </Grid>
+        <CheckBox Content="Channel 3"
+          IsChecked="{Binding IsChannel3Checked, Mode=TwoWay}" Visibility="{Binding Channel2Visible}" Margin="0,5,0,2"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="TextBox_Channel3" Grid.Column="0" Text="{Binding Channel3Value, Mode=TwoWay}" Visibility="{Binding Channel3Visible}"/>
+            <Slider x:Name="Slider_Channel3" Grid.Column="1" Margin="5,0,0,0" Minimum="{Binding Channel3MinValue}" Maximum="{Binding Channel3MaxValue}" Value="{Binding Channel3Value}" Visibility="{Binding Channel3Visible}"/>
+        </Grid>
+        <!-- Add more checkboxes for other channels as needed -->
+
+    </StackPanel>
+</UserControl>

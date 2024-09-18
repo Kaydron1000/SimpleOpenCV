@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CVFunctionsSchema"
+    targetNamespace="http://tempuri.org/CVFunctionsSchema.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/CVFunctionsSchema.xsd"
+    xmlns:mstns="http://tempuri.org/CVFunctionsSchema.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:simpleType name="Enum_ContourApproximationModes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ApproxNone" />
+      <xs:enumeration value="ApproxSimple" />
+      <xs:enumeration value="ApproxTC89L1" />
+      <xs:enumeration value="ApproxTC89KCOS" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Enum_RetrievalModes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="External" />
+      <xs:enumeration value="List" />
+      <xs:enumeration value="CComp" />
+      <xs:enumeration value="Tree" />
+      <xs:enumeration value="FloodFill" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Enum_InterpolationFlags">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Nearest" />
+      <xs:enumeration value="Linear" />
+      <xs:enumeration value="Cubic" />
+      <xs:enumeration value="Area" />
+      <xs:enumeration value="Lanczos4" />
+      <xs:enumeration value="Max" />
+      <xs:enumeration value="WarpFillOutliers" />
+      <xs:enumeration value="WarpInverseMap" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Enum_Thresholds">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Binary" />
+      <xs:enumeration value="BinaryInv" />
+      <xs:enumeration value="Trunc" />
+      <xs:enumeration value="Tozero" />
+      <xs:enumeration value="TozeroInv" />
+      <xs:enumeration value="Mask" />
+      <xs:enumeration value="Otsu" />
+      <xs:enumeration value="Triangle" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Enum_ImreadModes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unchanged" />
+      <xs:enumeration value="Grayscale" />
+      <xs:enumeration value="Color" />
+      <xs:enumeration value="AnyDepth" />
+      <xs:enumeration value="AnyColor" />
+      <xs:enumeration value="LoadGdal" />
+      <xs:enumeration value="ReducedGrayscale2" />
+      <xs:enumeration value="ReducedColor2" />
+      <xs:enumeration value="ReducedGrayscale4" />
+      <xs:enumeration value="ReducedColor4" />
+      <xs:enumeration value="ReducedGrayscale8" />
+      <xs:enumeration value="ReducedColor8" />
+      <xs:enumeration value="IgnoreOrientation" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ResizeType">
+    <xs:all>
+      <xs:element name="PixelsX" type="xs:int" />
+      <xs:element name="PixelsY" type="xs:int" />
+      <xs:element name="ResizeAlgorithm" type="Enum_InterpolationFlags"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="BlobDetectionType">
+    <xs:all>
+      <xs:element name="FilterByArea"          type="xs:boolean"      default="false" minOccurs="0"/>
+      <xs:element name="FilterByCircularity"   type="xs:boolean"      default="false" minOccurs="0"/>
+      <xs:element name="FilterByColor"         type="xs:boolean"      default="false" minOccurs="0"/>
+      <xs:element name="FilterByConvexity"     type="xs:boolean"      default="false" minOccurs="0"/>
+      <xs:element name="FilterByInertia"       type="xs:boolean"      default="false" minOccurs="0"/>
+      <xs:element name="BlobColor"             type="xs:byte"         default="0"     minOccurs="0"/>
+      <xs:element name="MaxArea"               type="xs:float"        default="0.3"   minOccurs="0"/>
+      <xs:element name="MinArea"               type="xs:float"        default="0.1"   minOccurs="0"/>
+      <xs:element name="MaxCircularity"        type="xs:float"        default="0.3"   minOccurs="0"/>
+      <xs:element name="MinCircularity"        type="xs:float"        default="0.1"   minOccurs="0"/>
+      <xs:element name="MaxConvexity"          type="xs:float"        default="0.3"   minOccurs="0"/>
+      <xs:element name="MinConvexity"          type="xs:float"        default="0.1"   minOccurs="0"/>
+      <xs:element name="MaxInertiaRatio"       type="xs:float"        default="0.3"   minOccurs="0"/>
+      <xs:element name="MinInertiaRatio"       type="xs:float"        default="0.1"   minOccurs="0"/>
+      <xs:element name="MaxThreshold"          type="xs:float"        default="0.3"   minOccurs="0"/>
+      <xs:element name="MinThreshold"          type="xs:float"        default="0.1"   minOccurs="0"/>
+      <xs:element name="ThresholdStep"         type="xs:float"        default="4"     minOccurs="0"/>
+      <xs:element name="MinDistBetweenBlobs"   type="xs:float"        default="1.4"   minOccurs="0"/>
+      <xs:element name="MinRepeatability"      type="xs:unsignedInt"  default="2"     minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="ThresholdType">
+    <xs:all>
+      <xs:element name="ThresholdMinValue"  type="xs:double" />
+      <xs:element name="ThresholdMaxValue"  type="xs:double" />
+      <xs:element name="ThresholdType"      type="Enum_Thresholds" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="LoadImage">
+    <xs:all>
+      <xs:element name="FilePath"   type="xs:string"         minOccurs="1"/>
+      <xs:element name="ImreadMode" type="Enum_ImreadModes"  minOccurs="1"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="FindCoutoursType">
+    <xs:all>
+      <xs:element name="RetrievalModes"            type="Enum_RetrievalModes"             minOccurs="1"/>
+      <xs:element name="ContourApproximationModes" type="Enum_ContourApproximationModes"  minOccurs="1"/>
+    </xs:all>
+  </xs:complexType>
+</xs:schema>

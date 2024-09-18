@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="SimpleOpenCV.UCScale"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimpleOpenCV"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+    <StackPanel>
+        <Label Content="Interpolation Type:"/>
+        <ComboBox x:Name="comboBox_InterpolationFlags">
+            
+        </ComboBox>
+        <Label Content="Aspect Ratio:"/>
+        <CheckBox x:Name="checkBox_KeepAspectRatio" Content="Keep Aspect Ratio" Margin="0,0,0,5"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="textBox_AspectRatioX" Width="50" Text="{Binding ScalingX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content=":"/>
+            <TextBox x:Name="textBox_AspectRatioY" Width="50" Text="{Binding ScalingY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <GridSplitter Height="5" Margin="0,10,0,0" HorizontalAlignment="Stretch"/>
+        <Label Content="Scale Factor:"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="textBox_ScaleX" Width="50" Text="{Binding ScalingX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="X"/>
+            <TextBox x:Name="textBox_ScaleY" Width="50" Text="{Binding ScalingY,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Y"/>
+        </StackPanel>
+        <GridSplitter Height="5" Margin="0,10,0,0" HorizontalAlignment="Stretch"/>
+        <Label Content="Pixel Size:"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="textBox_PixelX" Width="50" Text="{Binding ScalingX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="X"/>
+            <TextBox x:Name="textBox_PixelY" Width="50" Text="{Binding ScalingY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Y"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

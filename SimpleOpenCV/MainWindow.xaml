@@ -1,0 +1,239 @@
+﻿<Window x:Class="SimpleOpenCV.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleOpenCV"
+        xmlns:views="clr-namespace:SimpleOpenCV.Views"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="718" Width="936">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0" KeyUp="ScrollViewer_KeyUp" KeyDown="ScrollViewer_KeyDown">
+                <Border Name="viewboxBackground" Background="LightGray">
+                    <Viewbox x:Name="viewboxMain" MouseDown="viewboxMain_MouseDown" MouseUp="viewboxMain_MouseUp" MouseMove="viewboxMain_MouseMove" MouseWheel="viewboxMain_MouseWheel" KeyUp="viewboxMain_KeyUp" KeyDown="viewboxMain_KeyDown" >
+                        <Image x:Name="UpdatedImg" ></Image>
+                    </Viewbox>
+                </Border>
+            </ScrollViewer>
+            <ScrollViewer Margin="5,0,0,0" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ListView>
+                    <ListViewItem HorizontalContentAlignment="Stretch">
+                        <Expander Header="Treshhold">
+                            <views:ThresholdPropertiesView DataContext=""/>
+
+                        </Expander>
+                    </ListViewItem>
+                    <ListViewItem HorizontalContentAlignment="Stretch">
+                        <Expander Header="Image Translations">
+
+                        </Expander>
+                    </ListViewItem>
+                    <ListViewItem HorizontalContentAlignment="Stretch">
+                        <Expander Header="Blob Detection">
+                            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="152.333"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2">Filter By Area:</Label>
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2">Filter By Circularity:</Label>
+                                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2">Filter By Color:</Label>
+                                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2">Filter By Convexity:</Label>
+                                <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,28" Grid.RowSpan="2">Filter By Inertia:</Label>
+
+
+
+                                <CheckBox Grid.Column="2" x:Name="ChkBox_FilterByArea" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                <CheckBox Grid.Row="1" Grid.Column="2" x:Name="ChkBox_FilterByCircularity" VerticalAlignment="Center" Margin="5,0,5,0"></CheckBox>
+                                <CheckBox Grid.Row="2" Grid.Column="2" x:Name="ChkBox_FilterByColor" VerticalAlignment="Center" Margin="5,0,5,0"></CheckBox>
+                                <CheckBox Grid.Row="3" Grid.Column="2" x:Name="ChkBox_FilterByConvexity" VerticalAlignment="Center" Margin="5,0,5,0"></CheckBox>
+                                <CheckBox Grid.Row="4" Grid.Column="2" x:Name="ChkBox_FilterByInertia" VerticalAlignment="Center" Margin="5,0,5,0"></CheckBox>
+
+                                <Label Grid.Row="5" Grid.Column="0" Content="Min Distance Between Blobs:" Grid.ColumnSpan="2" Margin="0,0,0,28" Grid.RowSpan="2"/>
+                                <Label Grid.Row="6" Grid.Column="0" Content="Min Repeatability:" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
+                                <Label Grid.Row="7" Grid.Column="0" Content="Blob Color:" Grid.ColumnSpan="2" Margin="0,0,0,84" Grid.RowSpan="2"/>
+
+                                <TextBox Grid.Row="5" Grid.Column="2" x:Name="TB_MinDistBetweenBlobs" Text="{Binding Path=BlobParams.MinDistBetweenBlobs, Mode=TwoWay}" Margin="5,5,5,5"/>
+                                <TextBox  Grid.Row="6" Grid.Column="2" x:Name="TB_MinRepeatablitiy" Text="{Binding Path=BlobParams.MinRepeatability, Mode=TwoWay}" Margin="5,5,5,5"/>
+                                <Grid Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="152,0,0,84" Grid.RowSpan="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+
+
+                                <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,84" Grid.RowSpan="2" >
+                                    <Label Content="Area:" Grid.Row="6" Grid.Column="0"></Label>
+                                    <Grid>
+                                        <Border
+                                        Background="DarkGray"
+                                        Height="2"
+                                        Margin="5"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"/>
+                                        <local:RangeSlider 
+                                               x:Name="Slider_Area"
+                                               Orientation="Horizontal" 
+                                               Height="20"
+                                               Margin="5"
+                                               Maximum="255" 
+                                               Minimum="0.001"  
+                                               Start="{Binding Path=BlobParams.MinArea, Mode=TwoWay}"
+                                               End="{Binding Path=BlobParams.MaxArea, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="TB_AreaMin" Margin="5" Grid.Column="0" Text="{Binding Path=BlobParams.MinArea, Mode=TwoWay}"></TextBox>
+                                        <TextBox x:Name="TB_AreaMax" Margin="5" Grid.Column="1" Text="{Binding Path=BlobParams.MaxArea, Mode=TwoWay}"></TextBox>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,83" Grid.RowSpan="2">
+                                    <Label Content="Circularity:" Grid.Row="6" Grid.Column="0"></Label>
+                                    <Grid>
+                                        <Border
+                                        Background="DarkGray"
+                                        Height="2"
+                                        Margin="5"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"/>
+                                        <local:RangeSlider
+                                               x:Name="Slider_Circularity"
+                                               Orientation="Horizontal" 
+                                               Height="20"
+                                               Margin="5"
+                                               Maximum="1" 
+                                               Minimum="0.001"  
+                                               Start="{Binding Path=BlobParams.MinCircularity, Mode=TwoWay}"
+                                               End="{Binding Path=BlobParams.MaxCircularity, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="TB_CircularityMin" Margin="5" Grid.Column="0" Text="{Binding Path=BlobParams.MinCircularity, Mode=TwoWay}"></TextBox>
+                                        <TextBox x:Name="TB_CircularityMax" Margin="5" Grid.Column="1" Text="{Binding Path=BlobParams.MaxCircularity, Mode=TwoWay}"></TextBox>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3">
+                                    <Label Content="Convexity:" Grid.Row="6" Grid.Column="0"></Label>
+                                    <Grid>
+                                        <Border
+                                        Background="DarkGray"
+                                        Height="2"
+                                        Margin="5"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"/>
+                                        <local:RangeSlider 
+                                               x:Name="Slider_Convexity"
+                                               Orientation="Horizontal" 
+                                               Height="20"
+                                               Margin="5"
+                                               Maximum="1" 
+                                               Minimum="0.001"  
+                                               Start="{Binding Path=BlobParams.MinConvexity, Mode=TwoWay}"
+                                               End="{Binding Path=BlobParams.MaxConvexity, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="TB_ConvexityMin" Margin="5" Grid.Column="0" Text="{Binding Path=BlobParams.MinConvexity, Mode=TwoWay}"></TextBox>
+                                        <TextBox x:Name="TB_ConvexityMax" Margin="5" Grid.Column="1" Text="{Binding Path=BlobParams.MaxConvexity, Mode=TwoWay}"></TextBox>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,83,0,0" Grid.RowSpan="2">
+                                    <Label Content="InertiaRatio:" Grid.Row="7" Grid.Column="0"></Label>
+                                    <Grid>
+                                        <Border
+                                        Background="DarkGray"
+                                        Height="2"
+                                        Margin="5"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"/>
+                                        <local:RangeSlider 
+                                               x:Name="Slider_InertiaRatio"
+                                               Orientation="Horizontal" 
+                                               Height="20"
+                                               Margin="5"
+                                               Maximum="1" 
+                                               Minimum="0.001"  
+                                               Start="{Binding Path=BlobParams.MinInertiaRatio, Mode=TwoWay}"
+                                               End="{Binding Path=BlobParams.MaxInertiaRatio, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="TB_InertiaRatioMin" Margin="5" Grid.Column="0" Text="{Binding Path=BlobParams.MinInertiaRatio, Mode=TwoWay}"></TextBox>
+                                        <TextBox x:Name="TB_InertiaRatioMax" Margin="5" Grid.Column="1" Text="{Binding Path=BlobParams.MaxInertiaRatio, Mode=TwoWay}"></TextBox>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,84,0,0" Grid.RowSpan="2">
+                                    <Label Content="Threshold:" Grid.Row="7" Grid.Column="0"></Label>
+                                    <Grid>
+                                        <Border
+                                        Background="DarkGray"
+                                        Height="2"
+                                        Margin="5"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"/>
+                                        <local:RangeSlider 
+                                               x:Name="Slider_Threshold"
+                                               Orientation="Horizontal" 
+                                               Height="20"
+                                               Margin="5"
+                                               Maximum="255" 
+                                               Minimum="0"  
+                                               Start="{Binding Path=BlobParams.MinThreshold, Mode=TwoWay}"
+                                               End="{Binding Path=BlobParams.MaxThreshold, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="TB_ThresholdMin" Margin="5" Grid.Column="0" Text="{Binding Path=BlobParams.MinThreshold, Mode=TwoWay}"></TextBox>
+                                        <TextBox x:Name="TB_ThresholdMax" Margin="5" Grid.Column="1" Text="{Binding Path=BlobParams.MaxThreshold, Mode=TwoWay}"></TextBox>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </Expander>
+                    </ListViewItem>
+                </ListView>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
